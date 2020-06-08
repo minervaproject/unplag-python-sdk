@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='unplag',
+setup(name='unicheck',
       version='1.0.6',
       description='Unplag API python client',
       url='https://unplag.com',
