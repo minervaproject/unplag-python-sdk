@@ -1,12 +1,12 @@
 """
-This module builds connection to Unplag from client.
+This module builds connection to Unicheck from client.
 """
 
 from requests_oauthlib import OAuth1Session
 
 
 class Connection(object):
-    """ Representation of connection abstact in Unplag
+    """ Representation of connection abstact in Unicheck
         Not needed to change something here. """
 
     def __init__(self, key, secret, server):

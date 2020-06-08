@@ -1,17 +1,17 @@
 """
-This module represents file abstraction in Unplag.
+This module represents file abstraction in Unicheck.
 """
 
 from os.path import splitext
 from requests_toolbelt import MultipartEncoder
 from msgpack import packb
 
-from .response import UnplagMainException
-from .response import UnplagFileResponse
+from .response import UnicheckMainException
+from .response import UnicheckFileResponse
 
 
 class File(object):
-    """ Representation of file abstact in Unplag """
+    """ Representation of file abstact in Unicheck """
 
     def __init__(self, oauth_session, server):
         self.oauth_session = oauth_session
@@ -22,20 +22,20 @@ class File(object):
         Delete file from library
 
         :param id: file id in library, string or int
-        :return: UnplagFileResponse
+        :return: UnicheckFileResponse
         """
         resp = self.oauth_session.post(self.server + '/api/v2/file/delete', data={'id': id})
-        return UnplagFileResponse(resp)
+        return UnicheckFileResponse(resp)
 
     def get(self, id):
         """
         Get file info from library
 
         :param id: file id in library, string or int
-        :return: UnplagFileResponse
+        :return: UnicheckFileResponse
         """
         resp = self.oauth_session.get(self.server + '/api/v2/file/get?id=%s' % id)
-        return UnplagFileResponse(resp)
+        return UnicheckFileResponse(resp)
 
     def upload(self, path, upload_type='multipart', timeout=600, **kwargs):
         """
@@ -47,7 +47,7 @@ class File(object):
         :param timeout: timeout for uploading file,
                         default is 600 seconds (10 minutes)
         :param kwargs: optional arguments like directory_id='12820', name="Example name"
-        :return: UnplagFileResponse
+        :return: UnicheckFileResponse
         """
 
         def get_file_extension(path):
@@ -73,6 +73,6 @@ class File(object):
             resp = self.oauth_session.post(upload_url, data=file, headers={'Content-Type':  'application/x-msgpack'}, timeout=timeout)
 
         else:
-            raise UnplagMainException('Upload type not found!')
+            raise UnicheckMainException('Upload type not found!')
 
-        return UnplagFileResponse(resp)
+        return UnicheckFileResponse(resp)

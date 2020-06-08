@@ -1,13 +1,13 @@
 """
-This module represents directory abstraction in Unplag.
+This module represents directory abstraction in Unicheck.
 """
 
-from .response import UnplagMainException
-from .response import UnplagDirectoryResponse
+from .response import UnicheckMainException
+from .response import UnicheckDirectoryResponse
 
 
 class Directory(object):
-    """ Representation of directory abstract in Unplag """
+    """ Representation of directory abstract in Unicheck """
 
     def __init__(self, oauth_session, server):
         self.oauth_session = oauth_session
@@ -19,10 +19,10 @@ class Directory(object):
 
         :param name: Directory name (max length 64), string
         :param parent_id: Parent ID for new directory, 0 is for root directory (default)
-        :return: UnplagDirectoryResponse
+        :return: UnicheckDirectoryResponse
         """
         resp = self.oauth_session.post(self.server + '/api/v2/directory/create', data={'name': name, 'parent_id': parent_id})
-        return UnplagDirectoryResponse(resp)
+        return UnicheckDirectoryResponse(resp)
 
     def delete(self, id):
         """
@@ -30,10 +30,10 @@ class Directory(object):
 
         :param id: directory id for deleting,
                    You can not delete root directory with ID 0
-        :return: UnplagDirectoryResponse
+        :return: UnicheckDirectoryResponse
         """
         resp = self.oauth_session.post(self.server + '/api/v2/directory/delete', data={'id': id})
-        return UnplagDirectoryResponse(resp)
+        return UnicheckDirectoryResponse(resp)
 
     def get(self, id, list=False):
         """
@@ -41,7 +41,7 @@ class Directory(object):
 
         :param id: directory id in library, int
         :param list: Include list in response (default: 0), Allowed values: boolean
-        :return: UnplagDirectoryResponse
+        :return: UnicheckDirectoryResponse
         """
         resp = self.oauth_session.get(self.server + '/api/v2/directory/get?id=%s?list=%s' % (id, int(list)))
-        return UnplagDirectoryResponse(resp)
+        return UnicheckDirectoryResponse(resp)

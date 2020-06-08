@@ -1,14 +1,14 @@
 """
-This module represents check abstraction in Unplag.
+This module represents check abstraction in Unicheck.
 """
 
 from time import sleep
 
-from .response import UnplagCheckResponse
+from .response import UnicheckCheckResponse
 
 
 class Check(object):
-    """ Representation of Check abstact in Unplag """
+    """ Representation of Check abstact in Unicheck """
 
     def __init__(self, oauth_session, server):
         self.oauth_session = oauth_session
@@ -23,7 +23,7 @@ class Check(object):
                     "my_library", "web", "external_database", "doc_vs_docs", "web_and_my_library"
         :param exclude_citations: boolean
         :param exclude_references: boolean
-        :return: UnplagCheckResponse
+        :return: UnicheckCheckResponse
         """
 
         parameters = {
@@ -34,7 +34,7 @@ class Check(object):
         }
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/create', data=parameters)
-        return UnplagCheckResponse(resp)
+        return UnicheckCheckResponse(resp)
 
     def create_sync(self, *args, **kwargs):
         """
@@ -44,7 +44,7 @@ class Check(object):
 
         :param args: pass to create method file id
         :param kwargs: pass to create method other parameters
-        :return: UnplagCheckResponse
+        :return: UnicheckCheckResponse
         """
 
         check = self.create(*args, **kwargs)
@@ -64,11 +64,11 @@ class Check(object):
         Delete check for check id
 
         :param id: check id (string or int)
-        :return: UnplagCheckResponse
+        :return: UnicheckCheckResponse
         """
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/delete', data={"id": id})
-        return UnplagCheckResponse(resp)
+        return UnicheckCheckResponse(resp)
 
     def generate_pdf(self, id, lang="en_EN"):
         """
@@ -76,22 +76,22 @@ class Check(object):
 
         :param id: finished check id
         :param lang: main report language "en_EN", "uk_UA", "es_ES", "nl_BE"
-        :return: UnplagCheckResponse
+        :return: UnicheckCheckResponse
         """
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/generate_pdf', data={"id": id, "lang": lang})
-        return UnplagCheckResponse(resp)
+        return UnicheckCheckResponse(resp)
 
     def get(self, id):
         """
         Get info about check
 
         :param id: check id
-        :return: UnplagCheckResponse
+        :return: UnicheckCheckResponse
         """
 
         resp = self.oauth_session.get(self.server + '/api/v2/check/get?id=%s' % id)
-        return UnplagCheckResponse(resp)
+        return UnicheckCheckResponse(resp)
 
     def get_report_link(self, id, lang='en_EN', show_lang_picker=0):
         """
@@ -100,11 +100,11 @@ class Check(object):
         :param id: check id
         :param lang: check report language, allowed is en_EN, uk_UA, es_ES, nl_BE
         :param show_lang_picker: bool
-        :return: UnplagCheckResponse
+        :return: UnicheckCheckResponse
         """
 
         resp = self.oauth_session.get(self.server + '/api/v2/check/get_report_link?id=%s&lang=%s&show_lang_picker=%s' % (id, lang, show_lang_picker))
-        return UnplagCheckResponse(resp)
+        return UnicheckCheckResponse(resp)
 
     def toogle_citations(self, id, exclude_citations, exclude_references):
         """
@@ -113,7 +113,7 @@ class Check(object):
         :param id: check id
         :param exclude_citations: bool
         :param exclude_references: bool
-        :return: UnplagCheckResponse
+        :return: UnicheckCheckResponse
         """
 
         parameters = {
@@ -123,15 +123,15 @@ class Check(object):
         }
 
         resp = self.oauth_session.post(self.server + '/api/v2/check/toggle', data=parameters)
-        return UnplagCheckResponse(resp)
+        return UnicheckCheckResponse(resp)
 
     def track_progress(self, id):
         """
         Track progress for check
 
         :param id: check id
-        :return: UnplagCheckResponse
+        :return: UnicheckCheckResponse
         """
 
         resp = self.oauth_session.get(self.server + '/api/v2/check/progress?id=%s' % id)
-        return UnplagCheckResponse(resp)
+        return UnicheckCheckResponse(resp)

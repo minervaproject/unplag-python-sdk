@@ -2,21 +2,21 @@ import unittest
 import responses
 
 from requests_oauthlib import OAuth1Session
-from unplag.file import File
+from unicheck.file import File
 
 #   Initialize empty file entity
-file = File(OAuth1Session('key', 'secret'), 'https://unplag.com')
+file = File(OAuth1Session('key', 'secret'), 'https://unicheck.com')
 
 
 class TestFullFileEntity(unittest.TestCase):
     def test_file_abstract(self):
         self.assertIsInstance(file, File)
         self.assertIsInstance(file.oauth_session, OAuth1Session)
-        self.assertEqual(file.server, 'https://unplag.com')
+        self.assertEqual(file.server, 'https://unicheck.com')
 
     @responses.activate
     def test_mock_delete(self):
-        responses.add(responses.POST, 'https://unplag.com/api/v2/file/delete',
+        responses.add(responses.POST, 'https://unicheck.com/api/v2/file/delete',
                  body='{"result": true}', status=200,
                  content_type='application/json')
 
@@ -28,7 +28,7 @@ class TestFullFileEntity(unittest.TestCase):
 
     @responses.activate
     def test_mock_get(self):
-        responses.add(responses.GET, 'https://unplag.com/api/v2/file/get',
+        responses.add(responses.GET, 'https://unicheck.com/api/v2/file/get',
                       body='{"result": true}', status=200,
                       content_type='application/json')
 

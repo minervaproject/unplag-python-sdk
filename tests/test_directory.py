@@ -2,10 +2,10 @@ import unittest
 import responses
 
 from requests_oauthlib import OAuth1Session
-from unplag.directory import Directory
+from unicheck.directory import Directory
 
 #   Initialize empty directory entity
-folder = Directory(OAuth1Session('key', 'secret'), 'https://unplag.com')
+folder = Directory(OAuth1Session('key', 'secret'), 'https://unicheck.com')
 
 
 class TestFullFileEntity(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestFullFileEntity(unittest.TestCase):
     def test_mock_directory_create(self):
         create_resp = '{"result": true, "errors": [], "directory": {"id": 41, "name": "Bruce Willis", "parent_id": 0 }}'
 
-        responses.add(responses.POST, 'https://unplag.com/api/v2/directory/create',
+        responses.add(responses.POST, 'https://unicheck.com/api/v2/directory/create',
                  body=create_resp, status=200,
                  content_type='application/json')
 
@@ -33,7 +33,7 @@ class TestFullFileEntity(unittest.TestCase):
     def test_mock_directory_delete(self):
         delete_resp = '{"result": true, "errors": [], "id": 42 }'
 
-        responses.add(responses.POST, 'https://unplag.com/api/v2/directory/delete',
+        responses.add(responses.POST, 'https://unicheck.com/api/v2/directory/delete',
                  body=delete_resp, status=200,
                  content_type='application/json')
 
@@ -48,7 +48,7 @@ class TestFullFileEntity(unittest.TestCase):
     def test_mock_directory_get(self):
         get_resp = '{"result": true, "errors": [], "directory": {"id": 0, "name": "root", "parent_id": null }, "list": {"directories": [{"id": 13, "name": "Chack Norris", "parent_id": 0 } ] } }'
 
-        responses.add(responses.GET, 'https://unplag.com/api/v2/directory/get',
+        responses.add(responses.GET, 'https://unicheck.com/api/v2/directory/get',
                       body=get_resp, status=200,
                       content_type='application/json')
 

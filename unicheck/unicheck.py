@@ -1,7 +1,7 @@
 """
-This module implements a friendly interface between the Unplag and client.
+This module implements a friendly interface between the Unicheck and client.
 Full API documentation can be found at:
-https://unplag.com/api/doc
+https://unicheck.com/api/doc
 """
 
 from .connection import Connection
@@ -10,20 +10,20 @@ from .directory import Directory
 from .check import Check
 
 
-class Unplag(object):
-    """ User interface to Unplag """
+class Unicheck(object):
+    """ User interface to Unicheck """
 
-    def __init__(self, key, secret, server='https://unplag.com'):
+    def __init__(self, key, secret, server='https://unicheck.com'):
         """
-        Construct a Unplag client instance
-        :arg server: Unplag endpoint, should be a string and contains valid url,
-            default is  'https://unplag.com'
+        Construct a Unicheck client instance
+        :arg server: Unicheck endpoint, should be a string and contains valid url,
+            default is  'https://unicheck.com'
 
         :arg key: must be a string, from valid API key
-            from https://unplag.com/profile/apisettings
+            from https://unicheck.com/profile/apisettings
 
         :arg secret: must be a string, from valid API secret
-            from https://unplag.com/profile/apisettings
+            from https://unicheck.com/profile/apisettings
         """
 
         # Rip off trailing slash since all urls depend on that

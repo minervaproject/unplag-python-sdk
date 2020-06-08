@@ -5,14 +5,14 @@ This module represents responce abstraction and exceptions.
 from requests.models import Response
 
 
-class UnplagMainException(Exception):
+class UnicheckMainException(Exception):
     """
-    Class representing general wide exception in Unplag Python API
+    Class representing general wide exception in Unicheck Python API
     """
     pass
 
 
-class UnplagHTTPException(UnplagMainException):
+class UnicheckHTTPException(UnicheckMainException):
     """
     Class using for raising exceptions in format:
         "status_code status_info responce"
@@ -43,7 +43,7 @@ class UnplagHTTPException(UnplagMainException):
         return repr('%s %s %s' % (self.status_code, self.resp, self.response))
 
 
-class UnplagResponse(object):
+class UnicheckResponse(object):
     """
     Creating general response object.
     It validates if response is valid, than parse additional info,
@@ -53,7 +53,7 @@ class UnplagResponse(object):
     def __init__(self, response):
 
         if not isinstance(response, Response):
-            raise UnplagMainException('Object is not a valid response!')
+            raise UnicheckMainException('Object is not a valid response!')
 
         self.full_response_obj = response
         self.url = response.url
@@ -68,11 +68,11 @@ class UnplagResponse(object):
         :rtype: object
         :return: boolean
         """
-        if self.status_code != 200 and self.status_code in UnplagHTTPException.status_codes.keys():
-            raise UnplagHTTPException(self.status_code, self.text)
+        if self.status_code != 200 and self.status_code in UnicheckHTTPException.status_codes.keys():
+            raise UnicheckHTTPException(self.status_code, self.text)
 
         if not self.response['result']:
-            raise UnplagHTTPException(self.status_code, self.text)
+            raise UnicheckHTTPException(self.status_code, self.text)
 
         return True
 
@@ -80,31 +80,31 @@ class UnplagResponse(object):
         return repr(self.text)
 
 
-class UnplagFileResponse(UnplagResponse):
+class UnicheckFileResponse(UnicheckResponse):
     """
     Representing response object for File methods
     """
     def __init__(self, response):
-        UnplagResponse.__init__(self, response)
+        UnicheckResponse.__init__(self, response)
 
         self.check_responce()
 
 
-class UnplagCheckResponse(UnplagResponse):
+class UnicheckCheckResponse(UnicheckResponse):
     """
     Representing response object for Check methods
     """
     def __init__(self, response):
-        UnplagResponse.__init__(self, response)
+        UnicheckResponse.__init__(self, response)
 
         self.check_responce()
 
 
-class UnplagDirectoryResponse(UnplagResponse):
+class UnicheckDirectoryResponse(UnicheckResponse):
     """
     Representing response object for Check methods
     """
     def __init__(self, response):
-        UnplagResponse.__init__(self, response)
+        UnicheckResponse.__init__(self, response)
 
         self.check_responce()

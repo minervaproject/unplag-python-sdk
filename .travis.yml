@@ -14,5 +14,5 @@ install:
 script: tox
 
 after_success:
-  - coverage run --source=unplag -m unittest discover -s tests
+  - coverage run --source=unicheck -m unittest discover -s tests
   - coveralls

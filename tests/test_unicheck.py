@@ -1,26 +1,26 @@
 import unittest
 from requests_oauthlib import OAuth1Session
 
-from unplag import Unplag
-from unplag.connection import Connection
-from unplag.check import Check
-from unplag.file import File
+from unicheck import Unicheck
+from unicheck.connection import Connection
+from unicheck.check import Check
+from unicheck.file import File
 
 
-#   Initialize empty Unplag entity
-un = Unplag('test_key', 'test_secret', server='http://unplag.com/')
+#   Initialize empty Unicheck entity
+un = Unicheck('test_key', 'test_secret', server='http://unicheck.com/')
 
 
-class TestUnplagEntity(unittest.TestCase):
-    def test_unplag_auth(self):
-        self.assertEqual(un.server, 'http://unplag.com')
+class TestUnicheckEntity(unittest.TestCase):
+    def test_unicheck_auth(self):
+        self.assertEqual(un.server, 'http://unicheck.com')
         self.assertEqual(un.key, 'test_key')
         self.assertEqual(un.secret, 'test_secret')
 
 
 class TestConnectionEntity(unittest.TestCase):
     def test_connection(self):
-        conn = Connection('test_key', 'test_secret', 'http://unplag.com')
+        conn = Connection('test_key', 'test_secret', 'http://unicheck.com')
         conn.create()
 
         self.assertIsNotNone(conn.oauth_session)
