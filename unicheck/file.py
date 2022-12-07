@@ -3,7 +3,6 @@ This module represents file abstraction in Unicheck.
 """
 
 from os.path import splitext
-from requests_toolbelt import MultipartEncoder
 from msgpack import packb
 
 from .response import UnicheckMainException
@@ -61,10 +60,15 @@ class File(object):
 
         # Switch-case for type of upload
         if upload_type == 'multipart':
-            params = {'format': file_ext, 'file': ('check', open(path, 'rb'), 'application/' + file_ext)}
-            params.update(kwargs)
-            file = MultipartEncoder(fields=params)
-            resp = self.oauth_session.post(upload_url, data=file, headers={'Content-Type':  file.content_type}, timeout=timeout)
+            # This path used to be handled using a MultipartEncoder object
+            # provided by the requests_toolbelt library, but the upgrade of
+            # picasso to python 3.10 (see https://github.com/minervaproject/picasso/pull/11259)
+            # required the removal of requests_toolbelt, since there was no
+            # updated version of it that would be compatible. This code path
+            # is unused by picasso (in fact, the whole File API is unused),
+            # so we opt to just raise an exception here and move on with
+            # our lives.
+            raise Exception("Multipart uploads are no longer supported.")
 
         elif upload_type == 'msgpack':
             params = {'format': file_ext, 'file': open(path, 'rb').read()}
