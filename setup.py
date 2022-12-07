@@ -11,7 +11,6 @@ setup(name='unicheck',
       install_requires=[
             'requests>=2.12.3',
             'requests_oauthlib>=0.6.2',
-            'requests_toolbelt>=0.7.0',
             'msgpack>=0.5.6',
             'responses>=0.5.1',
       ],
